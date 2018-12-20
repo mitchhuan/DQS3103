@@ -6,7 +6,6 @@
 package DQS.JFrame;
 
 import DB.DBConn;
-import DQS.CoR.*;
 import DQS.Observer.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,6 +77,7 @@ public class Home extends javax.swing.JFrame {
         sType = new javax.swing.JLabel();
         serveBtn = new javax.swing.JButton();
         logout = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         idNumTxt = new javax.swing.JTextField();
@@ -146,6 +146,13 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("View Transactions");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -165,8 +172,13 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(sType, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(serveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 205, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -175,9 +187,12 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(logout)
-                        .addComponent(serveBtn))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(serveBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(logout)
+                            .addComponent(jButton1)))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -311,11 +326,12 @@ public class Home extends javax.swing.JFrame {
         String queue = (dataTable.getModel().getValueAt(row, 0).toString());
         String id = (dataTable.getModel().getValueAt(row, 1).toString());
         String se = (dataTable.getModel().getValueAt(row, 2).toString());
-
+        String role= "Chairman";
         qNum.setText(queue);
         idNum.setText(id);
         sType.setText(se);
 
+        Transactions t = new Transactions(id,queue,role,se);
         ((DefaultTableModel)dataTable.getModel()).removeRow(row);
         } else {
             qNum.setText("None");
@@ -361,6 +377,11 @@ public class Home extends javax.swing.JFrame {
         dataTable();
     }//GEN-LAST:event_submitQueueActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new ViewTransactions().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -401,6 +422,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTable dataTable;
     private javax.swing.JLabel idNum;
     private javax.swing.JTextField idNumTxt;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
